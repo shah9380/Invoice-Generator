@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/b2c00ac6e0.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body class="">
+    <form class="main w-[100%] flex flex-col gap-4 md:flex-row max-w-[1400px]">
+        <section class="invoice-section p-1 bg-white rounded-lg md:p-12 flex flex-col gap-2">
+            <div id="top-section" class="top-section flex flex-col-reverse gap-2 justify-between items-center w-[100%] py-4">
+                <div class="date-section w-[100%] text-sm ">
+                    <div><strong>Current Date: </strong><span></span></div>
+                    <div><strong>Due Date: </strong><input required type="date" class="back-every rounded-sm m-1 rounded-sm m-1"></div>
+                </div>
+                <div class="invoice-number w-[100%]">
+                    <div class="text-sm flex justify-end items-center w-[100%] gap-2"><strong>Invoice Number: </strong><input class="w-[20%] back-every rounded-sm m-1 rounded-sm m-1" type="number" value="1" min="1"></div>
+                </div>
+            </div>
+            <hr>
+            <div id="bill-address-section" class="bill-address-section py-4 w-[100%] md:flex gap-2">
+                <div class="bill-to md:flex md:flex-col w-1/2">
+                    <strong>Bill to:</strong><br>
+                    <input required type="text" placeholder="who is this invoice to?" class="back-every rounded-sm m-1 rounded-sm m-1">
+                    <input required type="email" placeholder="Email address" class="back-every rounded-sm m-1 rounded-sm m-1">
+                    <input required type="text" placeholder="Billing address" class="back-every rounded-sm m-1 rounded-sm m-1">
+                </div>
+                <div class="bill-for md:flex md:flex-col w-1/2">
+                    <strong>Bill from:</strong><br>
+                    <input required type="text" placeholder="who is this invoice for?" class="back-every rounded-sm m-1">
+                    <input required type="email" placeholder="Email address" class="back-every rounded-sm m-1">
+                    <input required type="text" placeholder="Billing address" class="back-every rounded-sm m-1">
+                </div>
+            </div>
+                <table class="table-fixed w-[100%]">
+                    <thead class="border-y border-gray-200 w-[100%]">
+                        <tr>
+                            <th class="w-[30%] md:w-[50%] py-2">ITEM</th>
+                            <th class="w-[18%] lg:w-[6%] md:w-[15%] py-2">QTY</th>
+                            <th class="w-[30%] lg:w-[10%] md:w-[25%] py-2">PRICE/RATE</th>
+                            <th class="w-[20%] lg:w-[8%] md:w-[10%] py-2">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+                <button id="add-item" class="text-center p-1 my-2 active:scale-[0.97] hover:shadow-xl bg-blue-600 text-white rounded-lg text-sm font-medium block mr-auto">Add Item</button>
+                <div id="price-section" class="amount w-[100%] flex flex-col gap-2 py-4 md:w-[50%] ml-auto">
+                    <div class="subtotal flex justify-between items-center"><strong>Subtotal: </strong><span><span>AUD</span><span>1.00</span></span></div>
+                    <div class="discount flex justify-between items-center"><strong>Discount: </strong><div><span>(</span><span>0</span><span>%</span><span>)</span><span>AUD</span><span>0.00</span></div></div>
+                    <div class="tax flex justify-between items-center"><strong>Tax: </strong><div><span>(</span><span>0</span><span>%</span><span>)</span><span>AUD</span><span>0.00</span></div></div>
+                </div>
+                <div class="total-section md:w-[50%] w-[100%] border-y border-gray-300 py-4 ml-auto">
+                    <div class="subtotal flex justify-between items-center"><strong class="text-[16px]">Total: </strong><strong class="text-[16px]" id="total"><span>AUD</span><span id="totally">1.00</span></strong></div>
+                </div>
+                <div class="notes-section w-[100%] p-1 py-4">
+                    <strong>Notes:</strong><br>
+                    <textarea name="thanks-note" id="" cols="10" rows="1" class="back-every rounded-sm min-w-[100%]" placeholder="Thanks for your Business"></textarea>
+                </div>
+        </section>
+        <section class="alter-view-section md:min-w-[400px] p-1 flex flex-col gap-8">
+            <button type="submit" id="review" class="w-[100%] md:mt-2 text-center p-1 py-2 active:scale-[0.97] hover:shadow-xl bg-blue-600 text-white rounded-lg text-sm font-medium">Review Invoice</button>
+            <div class="currency-tax-discount w-[100%] border-t border-gray-300 py-4 flex flex-col gap-4">
+                <div class="w-[100%]">
+                    <strong>Currency:</strong><br>
+                    <select name="currency" id="currency-alter" class="w-[100%] p-1 text-center rounded-lg border border-gray-300 outline-none">
+                        <option value="$">USD (United States Dollar)</option>
+                        <!-- <option value="$">USD (United States Dollar)</option>
+                        <option value="£">GBP (British Pound Sterling)</option>
+                        <option value="¥">JPY (Japanese Yen)</option>
+                        <option value="C$">CAD (Canadian Dollar)</option>
+                        <option value="AU$">Aud (Australian Dollar)</option>
+                        <option value="S$">SGD (Singapore Dollar)</option>
+                        <option value="CN¥">CNY (Chinese Renminbi)</option> -->
+                    </select>
+                </div>
+                <div class="w-[100%]">
+                    <strong>Tax rate:</strong><br>
+                    <div class="w-[100%] flex rounded-md border border-gray-300"><input id="tax" min="0" max="100" type="number" placeholder="0.0" step="0.01" class="grow p-1 outline-none rounded-l-md"><span class="w-8 border-2 border-gray-400 text-center flex justify-center items-center rounded-r-md">%</span></div>
+                </div>
+                <div class="w-[100%]">
+                    <strong>Discount rate:</strong><br>
+                    <div class="w-[100%] flex rounded-md border border-gray-300"><input id="discount" min="0" max="100" type="number" placeholder="0.0" step="0.01" class="grow p-1 outline-none rounded-l-md"><span class="w-8 border-2 border-gray-400 text-center flex justify-center items-center rounded-r-md">%</span></div>
+                </div>
+            </div>
+        </section>
+        <div id="popup-main" class="popup hidden flex flex-col justify-center items-center w-[100vw] h-[100%] border-2 border-blue-600 fixed">
+            <div class="popup1 bg-gray-200 max-w-[800px] min-w-[300px] rounded-lg">
+                <div class="pdf-section" >
+                    <div id="name-section-pop" class="flex justify-between items-start p-4">
+                        <div>
+                            <h2 class="font-bold">shah Islam</h2>
+                            <div class="text-gray-500 text-sm font-semibold">Invoice #: <span>1</span></div>
+                        </div>
+                        <div><strong class="font-bold">Amount Due: <span class="text-gray-500 text-sm font-medium">$0.9524244244</span></strong></div>
+                    </div>
+                    <div class="bg-white">
+                        <div id="bill-section-pop" class="p-4 md:flex gap-8">
+                            <div>
+                                <strong>Billed to:</strong><br>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                            </div>
+                            <div>
+                                <strong>Billed from:</strong><br>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                            </div>
+                            <div>
+                                <strong>Date Of Issue</strong>
+                                <p></p>
+                            </div>
+                        </div>
+                        <table class="table-fixed relative mx-4">
+                            <thead class="border-y border-gray-200">
+                                <tr class="max-w-[100%]">
+                                    <th class="w-[18%] lg:w-[10%] md:w-[15%] py-2 text-start pl-4 text-sm">QTY</th>
+                                    <th class="w-[30%] md:w-[40%] lg:w-[40%] py-2 text-start text-sm">DESCRIPTION</th>
+                                    <th class="w-[20%] lg:w-[10%] md:w-[20%] py-2 text-start text-sm">PRICE</th>
+                                    <th class="w-[22%] lg:w-[10%] md:w-[15%] py-2 text-start text-sm">AMOUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body-pop">
+                                
+                            </tbody>
+                        </table>
+                        <div class="border-y border-gray-200 mt-8 mx-4">
+                            <div class="flex justify-end items-center pl-24 md:pl-48 lg:pl-96 py-1">
+                                <strong class="grow text-start">SUBTOTAL</strong>
+                                <div id="subtotalpop">$ 1.00</div>
+                            </div>
+                            <hr>
+                            <div class="flex justify-end items-center pl-24 md:pl-48 lg:pl-96 py-1">
+                                <strong class="grow text-start">TOTAL</strong>
+                                <div id="totalpop">$ 1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons-section bg-white flex gap-4 px-4 pt-10 pb-4">
+                    <button class="grow rounded-lg text-center py-2 bg-blue-600 text-white active:scale-[0.97] duration-300 ease-in-out"><i class="fa-regular fa-paper-plane"></i> Send Invoice</button>
+                    <button id="download" class=" grow rounded-lg text-center py-2 border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 duration-300 ease-in-out active:scale-[0.97]"><i class="fa-solid fa-cloud-arrow-down"></i> Download Copy</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <script defer src="script.js"></script>
+    <script src="apikey.js"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+</body>
+</html>
